@@ -82,75 +82,88 @@ body::after {
 
 .ceiling__plane {
   position: absolute;
-  left: -60%;
-  width: 220%;
+  left: -200%;
+  width: 500%;
   top: 0;
-  height: 1500px;
+  height: 2400px;
   transform-origin: 50% 0;
   transform: rotateX(-62deg);
 }
 
-/* acoustic tiles: speckle texture + T-bar grid */
+/* acoustic tiles: speckle texture + T-bar grid.
+   Tiles are 240px; the grid is centred so fixtures snap to it with
+   --col (tiles left/right of centre) and --row (tiles back from the viewer). */
 .tile-grid {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, var(--tile-line) 0 5px, transparent 5px) 0 0 / 240px 100%,
+    linear-gradient(90deg, var(--tile-line) 0 5px, transparent 5px) 50% 0 / 240px 100%,
     linear-gradient(var(--tile-line) 0 5px, transparent 5px) 0 0 / 100% 240px,
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .36 0 0 0 0 .22 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
     var(--tile);
 }
 
-.stain {
+.stain, .vent, .troffer {
   position: absolute;
-  left: 58%;
-  top: 480px;
-  width: 240px;
-  height: 240px;
+  left: calc(50% - 115px + var(--col, 0) * 240px);
+  top: calc(5px + var(--row, 0) * 240px);
+  width: 235px;
+  height: 235px;
+}
+
+.stain {
+  --col: 1; --row: 2;
   background: radial-gradient(ellipse at 45% 55%, rgba(150, 128, 60, .35), rgba(150, 128, 60, .12) 45%, transparent 70%);
   border-radius: 40% 60% 55% 45%;
 }
 
 .vent {
-  position: absolute;
-  left: 34%;
-  top: 965px;
-  width: 235px;
-  height: 235px;
+  --col: 0; --row: 5;
   background: repeating-linear-gradient(0deg, #b4b88a 0 6px, #d5d8ae 6px 14px);
   box-shadow: inset 0 0 0 10px #cfd2a6;
 }
 
-/* fluorescent troffers — each <i> is a tube */
+/* fluorescent troffers: recessed flush into the grid, two tiles long */
 .troffer {
-  position: absolute;
-  width: 235px;
   height: 475px;
   display: flex;
-  gap: 10px;
-  padding: 18px 14px;
-  background: #f2f5d6;
+  gap: 16px;
+  padding: 22px;
+  background: #fbffe9;
   box-shadow:
-    0 0 0 6px #d8dbb0,
-    0 0 60px 30px var(--glow),
-    0 0 180px 90px rgba(244, 255, 168, .35);
+    inset 0 0 0 3px #f4f6e0,
+    inset 0 0 0 4px #b9bd8e,
+    inset 0 0 26px 6px rgba(226, 238, 150, .55),
+    0 0 50px 18px var(--glow),
+    0 0 160px 80px rgba(244, 255, 168, .3);
+}
+.troffer::after { /* prismatic diffuser lens */
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background:
+    linear-gradient(90deg, rgba(190, 200, 140, .16) 1px, transparent 1px) 0 0 / 6px 6px,
+    linear-gradient(rgba(190, 200, 140, .16) 1px, transparent 1px) 0 0 / 6px 6px;
+  pointer-events: none;
 }
 .troffer i {
   flex: 1;
-  background: linear-gradient(90deg, #eef4c9, var(--tube) 40%, #fff 50%, var(--tube) 60%, #eef4c9);
-  border-radius: 3px;
-  box-shadow: 0 0 18px rgba(255, 255, 220, .9);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff 45%, #fff 55%, rgba(255, 255, 255, 0));
+  filter: blur(4px);
 }
-.troffer--a { left: 22%; top: 5px; }
-.troffer--b { left: 65%; top: 245px; }
-.troffer--c { left: 10%; top: 725px; transform: rotate(90deg); transform-origin: 117px 117px; }
-.troffer--d { left: 72%; top: 965px; }
+/* two symmetric rows, each light one tile in from the centre aisle */
+.troffer--a { --col: -2; --row: 0; }
+.troffer--b { --col: 2;  --row: 0; }
+.troffer--c { --col: -2; --row: 3; }
+.troffer--d { --col: 2;  --row: 3; }
 .troffer--dead {
-  background: #d7d9b4;
-  box-shadow: 0 0 0 6px #c7ca9c;
+  background: #d9dbb6;
+  box-shadow:
+    inset 0 0 0 3px #e2e4c2,
+    inset 0 0 0 4px #b3b784,
+    inset 0 0 20px rgba(120, 124, 70, .25);
 }
-.troffer--dead i { background: #c5c79f; box-shadow: none; }
-.troffer--dead i:nth-child(2) { background: #b9bb8f; }
+.troffer--dead i { background: none; filter: none; }
 
 .troffer.is-stuttering { animation: stutter 2.6s steps(1) infinite; }
 @keyframes stutter {
@@ -165,8 +178,9 @@ body::after {
 
 .exit {
   position: absolute;
-  right: 12%;
-  bottom: 30%;
+  left: 50%;
+  top: 26%;
+  transform: translateX(-50%);
   padding: 4px 10px 2px;
   font-family: var(--type);
   font-weight: 700;
@@ -698,7 +712,10 @@ body.crashed .ceiling, body.crashed .wall, body.crashed .desk { animation: shake
   .phone { width: min(100%, 420px); justify-self: center; }
   .sticky--pink { justify-self: end; margin: -10px 10px 0 0; }
   .clip--mug { justify-self: start; margin-top: -120px; margin-left: 10px; }
-  .exit { right: 8%; bottom: 44%; }
+  .exit { top: 22%; }
+  .troffer--a, .troffer--c { --col: -1; }
+  .troffer--b, .troffer--d { --col: 1; }
+  .stain { --col: 0; --row: 4; }
   .ceiling { perspective: 480px; }
   .wordmark { text-shadow: 0 0 1px #2e3018, 0 1px 3px rgba(40, 44, 20, .7), 0 0 18px rgba(60, 64, 30, .35); }
   .memo { margin-bottom: 30px; }
