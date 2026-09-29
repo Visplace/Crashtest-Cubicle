@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>crashtest cubicle</title>
+  <meta name="description" content="something is happening in cubicle 4B.">
+  <meta property="og:title" content="crashtest cubicle">
+  <meta property="og:description" content="something is happening in cubicle 4B.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='2' y='11' width='28' height='10' fill='%23f6f8d6' stroke='%233d4020' stroke-width='2'/><line x1='6' y1='16' x2='26' y2='16' stroke='%23c9cf8a' stroke-width='2'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital@0;1&family=Poiret+One&family=Reenie+Beanie&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- shared filters: "wobble" makes clip-art look drawn on a legal pad, "fabric" is the cubicle-wall weave -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="wobble">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="3.2"/>
+    </filter>
+  </svg>
+
+  <div class="flicker" aria-hidden="true"></div>
+
+  <!-- ============ THE CEILING ============ -->
+  <header class="ceiling">
+    <div class="ceiling__plane" aria-hidden="true">
+      <div class="tile-grid"></div>
+      <div class="troffer troffer--a"><i></i><i></i><i></i></div>
+      <div class="troffer troffer--b" data-bad-light><i></i><i></i><i></i></div>
+      <div class="troffer troffer--c"><i></i><i></i><i></i></div>
+      <div class="troffer troffer--d troffer--dead"><i></i><i></i><i></i></div>
+      <div class="stain"></div>
+      <div class="vent"></div>
+    </div>
+
+    <div class="exit" aria-hidden="true">EXIT</div>
+
+    <h1 class="wordmark" aria-label="crashtest cubicle">
+      <span class="wordmark__row"><span class="lo">crash</span><span class="hi">test</span></span>
+      <span class="wordmark__row"><span class="lo">cubic</span><span class="hi">le</span></span>
+    </h1>
+
+    <p class="scrawl scrawl--ceiling">look up. the buzzing is us.</p>
+  </header>
+
+  <!-- ============ THE CUBICLE WALL ============ -->
+  <main class="wall">
+    <div class="wall__trim" aria-hidden="true"></div>
+
+    <div class="board">
+
+      <!-- the monitor -->
+      <section class="crt" aria-label="computer terminal">
+        <div class="crt__case">
+          <div class="crt__bezel">
+            <div class="crt__screen">
+              <pre id="terminal" aria-live="polite"></pre>
+            </div>
+          </div>
+          <div class="crt__chin">
+            <span class="crt__badge">CUBICLE 4B</span>
+            <span class="crt__led"></span>
+          </div>
+        </div>
+        <div class="crt__neck" aria-hidden="true"></div>
+        <div class="crt__base" aria-hidden="true"></div>
+        <div class="sticky sticky--crt">
+          <p>password is</p>
+          <p class="strike">racecar</p>
+          <p>still racecar</p>
+        </div>
+      </section>
+
+      <!-- the race car, pinned up like a kid's drawing -->
+      <figure class="doodle doodle--car">
+        <span class="pin" aria-hidden="true"></span>
+        <button class="car-btn" type="button" aria-label="let it out">
+          <svg viewBox="-30 0 250 90" class="clip clip--car" aria-hidden="true">
+            <g filter="url(#wobble)" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 60 L20 44 L62 40 L86 24 L138 22 L160 38 L200 44 L208 58 L196 64"/>
+              <path d="M72 64 L148 64"/>
+              <path d="M94 28 L90 40 L150 40 L136 26 Z"/>
+              <path d="M112 26 L112 40"/>
+              <circle cx="52" cy="64" r="14"/><circle cx="52" cy="64" r="5"/>
+              <circle cx="170" cy="64" r="14"/><circle cx="170" cy="64" r="5"/>
+              <path d="M20 44 L10 30 L30 30"/>
+              <path d="M4 50 L-18 50 M2 58 L-26 58 M8 42 L-10 42" stroke-dasharray="4 5"/>
+            </g>
+            <text x="116" y="57" font-family="Courier Prime, monospace" font-size="13" fill="currentColor">4B</text>
+          </svg>
+        </button>
+        <figcaption class="scrawl">↑ this is us. (don't click it)</figcaption>
+      </figure>
+
+      <!-- memo -->
+      <section class="memo" aria-labelledby="memo-title">
+        <svg class="clip clip--paperclip" viewBox="0 0 40 110" aria-hidden="true">
+          <path filter="url(#wobble)" d="M28 30 L28 88 Q28 102 18 102 Q8 102 8 88 L8 18 Q8 6 20 6 Q32 6 32 18 L32 80 Q32 90 24 90 Q16 90 16 80 L16 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <p class="memo__label">INTEROFFICE MEMORANDUM</p>
+        <dl class="memo__head">
+          <dt>TO:</dt><dd>all staff, floor 4</dd>
+          <dt>FROM:</dt><dd>facilities</dd>
+          <dt>RE:</dt><dd id="memo-title">the noise coming from cubicle 4B</dd>
+        </dl>
+        <div class="memo__body">
+          <p>It has come to our attention that several employees have reported <span class="redact">a low engine hum</span> after hours near the northeast corner of the floor.</p>
+          <p>We have checked the ballasts. The overhead lighting is functioning within normal parameters. The buzzing is <span class="strike">not</span><span class="pen">definitely</span> coming from the lights.</p>
+          <p>Please refrain from <span class="redact">revving</span> during business hours. There is nowhere to go. The hallway ends at the copier.</p>
+          <p>Further updates will be distributed <span class="circled">soon</span>.</p>
+        </div>
+        <p class="scrawl scrawl--memo">they can't keep us in here forever</p>
+      </section>
+
+      <!-- desk phone / voicemail = the music player -->
+      <section class="phone" aria-labelledby="vm-title">
+        <div class="phone__screen">
+          <span id="vm-title">(0) new messages</span>
+          <span>ext. 4417</span>
+        </div>
+        <ol class="tracks" id="tracks"></ol>
+        <p class="phone__empty" id="empty">nothing here yet.<br>check back after lunch.</p>
+        <div class="phone__keys" aria-hidden="true">
+          <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>*</i><i>0</i><i>#</i>
+        </div>
+        <audio id="player" preload="none"></audio>
+      </section>
+
+      <!-- small clutter -->
+      <div class="sticky sticky--pink">
+        <p>speed limit</p>
+        <p class="big">0</p>
+        <p>(for now)</p>
+      </div>
+
+      <svg class="clip clip--mug" viewBox="0 0 90 100" aria-hidden="true">
+        <g filter="url(#wobble)" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 36 L20 92 L62 92 L68 36 Z"/>
+          <path d="M68 48 Q86 50 82 66 Q78 78 64 76"/>
+          <path d="M30 26 Q24 18 32 10 M44 28 Q38 18 46 8 M56 26 Q52 18 58 12"/>
+        </g>
+        <text x="30" y="68" font-family="Courier Prime, monospace" font-size="11" fill="currentColor">#1</text>
+      </svg>
+
+      <nav class="links" id="links" aria-label="elsewhere" hidden>
+        <p class="scrawl">elsewhere →</p>
+        <ul id="link-list"></ul>
+      </nav>
+    </div>
+  </main>
+
+  <!-- ============ THE DESK ============ -->
+  <footer class="desk">
+    <svg class="clip clip--stapler" viewBox="0 0 160 60" aria-hidden="true">
+      <g filter="url(#wobble)" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 50 L150 50 L150 42 L20 42 Q8 42 8 50 Z"/>
+        <path d="M20 42 L24 22 Q26 14 36 14 L140 18 Q150 20 148 30 L146 38 L24 38"/>
+        <path d="M140 18 L150 42"/>
+      </g>
+    </svg>
+    <p>crashtest cubicle &middot; floor 4 &middot; <span id="clock">--:--</span></p>
+    <p class="desk__small">please do not adjust the thermostat.</p>
+  </footer>
+
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
