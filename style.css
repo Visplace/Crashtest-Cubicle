@@ -178,14 +178,25 @@ body::after {
   text-shadow: 0 0 6px rgba(230, 60, 40, .55);
   box-shadow: 0 6px 0 -3px #7d7d62;
 }
-.exit::after {
+.exit::before { /* ceiling canopy the sign is bolted to */
+  content: "";
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  bottom: calc(100% + 2px);
+  height: 5px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(#b9b99c, #8f8f74);
+}
+.exit::after { /* short stem */
   content: "";
   position: absolute;
   left: 50%;
   bottom: 100%;
-  width: 2px;
-  height: 400px;
-  background: #9a9a80;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  background: #8f8f74;
 }
 
 /* the wordmark: thin lowercase + small caps, pencilled onto the light */
@@ -207,6 +218,7 @@ body::after {
 }
 .wordmark__row { display: block; white-space: nowrap; }
 .wordmark .lo { font-size: clamp(64px, 15vw, 190px); }
+.wordmark__row + .wordmark__row { margin-top: .04em; }
 .wordmark .hi {
   font-size: clamp(38px, 8.6vw, 108px);
   text-transform: uppercase;
