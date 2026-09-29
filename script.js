@@ -8,16 +8,16 @@
   var term = document.getElementById("terminal");
   var hasMusic = data.TRACKS && data.TRACKS.length > 0;
   var lines = [
-    "C:\\FLOOR4\\4B> dir",
+    "C:\\STUCK\\V1> dir",
     "",
-    " ENGINE.SYS   1,024",
+    " ENGINE.SYS    2001",
     " ESCAPE.PLN       0",
     " SONGS      " + (hasMusic ? data.TRACKS.length + " file(s)" : "<soon>"),
     "",
-    "C:\\FLOOR4\\4B> run crashtest.exe",
-    hasMusic ? "ok. check your voicemail." : "not yet.",
+    "C:\\UNSTUCK\\V1> run crashtest.exe",
+    hasMusic ? "!!!ok. check your voicemail." : "!!!not yet.",
     "",
-    "C:\\FLOOR4\\4B> "
+    "C:\\KEEPTRYING\\LOL> "
   ];
   var text = lines.join("\n");
 
