@@ -140,6 +140,25 @@
     document.getElementById("links").hidden = false;
   }
 
+  /* ---------- the exit sign (it doesn't go anywhere) ---------- */
+  var exit = document.querySelector(".exit");
+  var exitNote = document.getElementById("exit-note");
+  var replies = ["nice try.", "it's painted on.", "nowhere to go.", "back to work.", "maybe tomorrow."];
+  var replyIdx = 0;
+  var exitTimer = null;
+  exit.addEventListener("click", function () {
+    exit.classList.add("is-lit");
+    exitNote.textContent = replies[replyIdx++ % replies.length];
+    exitNote.classList.remove("is-shown");
+    void exitNote.offsetWidth;
+    exitNote.classList.add("is-shown");
+    clearTimeout(exitTimer);
+    exitTimer = setTimeout(function () {
+      exit.classList.remove("is-lit");
+      exitNote.classList.remove("is-shown");
+    }, 2200);
+  });
+
   /* ---------- the car tries to leave ---------- */
   var carBtn = document.querySelector(".car-btn");
   var driving = false;
@@ -159,14 +178,14 @@
       void flicker.offsetWidth;
       flicker.classList.add("is-on");
 
-      var bonk = document.createElement("div");
-      bonk.className = "bonk";
-      bonk.textContent = "*bonk*";
-      document.body.appendChild(bonk);
+      var crash = document.createElement("div");
+      crash.className = "crash";
+      crash.textContent = "*CRASH*";
+      document.body.appendChild(crash);
 
       setTimeout(function () {
         runaway.remove();
-        bonk.remove();
+        crash.remove();
         document.body.classList.remove("crashed");
         carBtn.style.visibility = "";
         driving = false;
