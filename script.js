@@ -177,7 +177,9 @@
 
   function place(idx, who) {
     marks[idx] = who;
-    cells[idx].textContent = who;
+    cells[idx].innerHTML = who === "X"
+      ? '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M9 8 Q20 21 32 33 M31 7 Q19 19 8 32"/></svg>'
+      : '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M22 7 C10 6 6 17 8 25 C10 33 22 35 29 29 C35 23 33 11 24 8 L19 7"/></svg>';
     cells[idx].classList.add(who === "X" ? "is-x" : "is-o");
     cells[idx].disabled = true;
     cells[idx].setAttribute("aria-label", who);
@@ -234,6 +236,8 @@
       var c = document.createElement("button");
       c.type = "button";
       c.className = "ttt__cell";
+      c.style.left = (k % 3) * 33.333 + "%";
+      c.style.top = Math.floor(k / 3) * 33.333 + "%";
       c.setAttribute("aria-label", "empty square " + (k + 1));
       c.addEventListener("click", play.bind(null, k));
       board.appendChild(c);
