@@ -159,6 +159,90 @@
     }, 2200);
   });
 
+  /* ---------- tic-tac-toe on the cubicle wall ---------- */
+  var board = document.getElementById("ttt");
+  var tttNote = document.getElementById("ttt-note");
+  var cells = [];
+  var marks = [];
+  var over = false;
+  var LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+  function winner(m) {
+    for (var k = 0; k < LINES.length; k++) {
+      var l = LINES[k];
+      if (m[l[0]] && m[l[0]] === m[l[1]] && m[l[0]] === m[l[2]]) return l;
+    }
+    return null;
+  }
+
+  function place(idx, who) {
+    marks[idx] = who;
+    cells[idx].textContent = who;
+    cells[idx].classList.add(who === "X" ? "is-x" : "is-o");
+    cells[idx].disabled = true;
+    cells[idx].setAttribute("aria-label", who);
+  }
+
+  function finish(line, msg) {
+    over = true;
+    if (line) line.forEach(function (k) { cells[k].classList.add("is-win"); });
+    cells.forEach(function (c) { c.disabled = true; });
+    tttNote.textContent = msg;
+    setTimeout(resetGame, 2200);
+  }
+
+  function pickMove() {
+    var open = [];
+    for (var k = 0; k < 9; k++) if (!marks[k]) open.push(k);
+    // win if possible, then block, then centre, otherwise anywhere (a little sloppy on purpose)
+    var tries = ["O", "X"];
+    for (var t = 0; t < tries.length; t++) {
+      for (var j = 0; j < open.length; j++) {
+        var test = marks.slice();
+        test[open[j]] = tries[t];
+        if (winner(test) && (t === 0 || Math.random() < .85)) return open[j];
+      }
+    }
+    if (!marks[4]) return 4;
+    return open[Math.floor(Math.random() * open.length)];
+  }
+
+  function play(idx) {
+    if (over || marks[idx]) return;
+    place(idx, "X");
+    var line = winner(marks);
+    if (line) return finish(line, "ok fine. you win.");
+    if (marks.filter(Boolean).length === 9) return finish(null, "tie. obviously.");
+    cells.forEach(function (c) { c.disabled = true; });
+    tttNote.textContent = "hmm...";
+    setTimeout(function () {
+      place(pickMove(), "O");
+      cells.forEach(function (c, k) { c.disabled = !!marks[k]; });
+      var l2 = winner(marks);
+      if (l2) return finish(l2, "ha. back to work.");
+      if (marks.filter(Boolean).length === 9) return finish(null, "tie. obviously.");
+      tttNote.textContent = "your move";
+    }, 500);
+  }
+
+  function resetGame() {
+    board.innerHTML = "";
+    cells = [];
+    marks = [];
+    over = false;
+    for (var k = 0; k < 9; k++) {
+      var c = document.createElement("button");
+      c.type = "button";
+      c.className = "ttt__cell";
+      c.setAttribute("aria-label", "empty square " + (k + 1));
+      c.addEventListener("click", play.bind(null, k));
+      board.appendChild(c);
+      cells.push(c);
+    }
+    tttNote.textContent = "your move";
+  }
+  resetGame();
+
   /* ---------- the car tries to leave ---------- */
   var carBtn = document.querySelector(".car-btn");
   var driving = false;
