@@ -170,14 +170,6 @@ body::after {
   background: linear-gradient(rgba(60, 58, 34, .35), transparent 8%, transparent 72%, rgba(250, 255, 215, .55) 92%, rgba(80, 76, 44, .3));
   filter: blur(3px);
 }
-.troffer--dead::before { /* crack in the lens */
-  content: "";
-  position: absolute;
-  inset: 4px;
-  z-index: 1;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200' preserveAspectRatio='none'%3E%3Cpath d='M0 58 L18 66 L27 61 L41 79 L52 74 L63 96 M41 79 L38 92 L46 104 M27 61 L30 50' fill='none' stroke='%237d7f55' stroke-width='.8' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
-  pointer-events: none;
-}
 
 .troffer.is-stuttering { animation: stutter 2.6s steps(1) infinite; }
 @keyframes stutter {
@@ -645,14 +637,11 @@ body.crashed .ceiling, body.crashed .wall, body.crashed .desk { animation: shake
   transform: rotate(-4deg);
 }
 .scrawl--memo {
-  position: absolute;
-  right: 18px;
-  top: calc(100% - 26px);
-  transform: rotate(-4deg);
+  margin: -6px 4px -10px 0;
   text-align: right;
+  font-size: 2.3rem;
+  transform: rotate(-4deg);
 }
-.scrawl--memo .scrawl { font-size: 2.4rem; }
-.scrawl--memo .scrawl--quiet { font-size: 1.9rem; margin: 2px 26px 0 0; transform: rotate(2deg); opacity: .85; }
 
 /* ---- phone ---- */
 .phone {
@@ -743,12 +732,44 @@ body.crashed .ceiling, body.crashed .wall, body.crashed .desk { animation: shake
   width: 120px;
   transform: rotate(-4deg);
 }
-.clip--bored {
+.bored {
   grid-column: 2 / span 5;
   justify-self: center;
-  width: min(100%, 300px);
-  margin-top: 90px;
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  margin-top: 40px;
   transform: rotate(-2deg);
+}
+.clip--bored { width: 170px; flex: none; }
+.ttt { position: relative; width: 132px; flex: none; }
+.ttt__grid { width: 100%; height: auto; }
+.ttt__cells {
+  position: absolute;
+  inset: 0 0 auto;
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.ttt__cell {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--scrawl);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--pen);
+  cursor: pointer;
+}
+.ttt__cell:disabled { cursor: default; }
+.ttt__cell.is-o { color: var(--red); }
+.ttt__cell.is-win { text-decoration: line-through; text-decoration-thickness: 2px; }
+.ttt__cell:focus-visible { outline: 2px dashed var(--pen); outline-offset: -6px; }
+.ttt__note {
+  margin-top: 4px;
+  text-align: center;
+  font-size: 1.7rem;
+  min-height: 1em;
 }
 
 /* ---- mug + links ---- */
@@ -822,12 +843,11 @@ body.crashed .ceiling, body.crashed .wall, body.crashed .desk { animation: shake
   .stain { --col: 0; --row: 4; }
   .ceiling { perspective: 480px; }
   .wordmark { text-shadow: 0 0 1px #2e3018, 0 1px 3px rgba(40, 44, 20, .7), 0 0 18px rgba(60, 64, 30, .35); }
-  .memo { margin-bottom: 124px; }
-  .scrawl--memo { top: calc(100% + 4px); right: 4px; left: 16px; }
-  .scrawl--memo .scrawl { font-size: 2rem; }
-  .scrawl--memo .scrawl--quiet { font-size: 1.7rem; }
+  .memo { margin-bottom: 30px; }
+  .scrawl--memo { font-size: 2rem; }
   .clip--notes { width: 90px; right: auto; left: 0; bottom: calc(100% + 6px); }
-  .clip--bored { grid-column: 1; margin-top: 0; }
+  .bored { grid-column: 1; margin-top: 0; gap: 10px; }
+  .clip--bored { width: 140px; }
   .exit__note { left: auto; right: 12px; top: calc(22% + 34px); }
 }
 

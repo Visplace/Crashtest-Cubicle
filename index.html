@@ -118,10 +118,7 @@
           <p>Don&rsquo;t forget that there is nowhere to go. See you tomorrow. Thanks!</p>
           <p>&ndash; Bossman</p>
         </div>
-        <div class="scrawl--memo">
-          <p class="scrawl">they can't keep us in here forever</p>
-          <p class="scrawl scrawl--quiet">am I really stuck here?</p>
-        </div>
+        <p class="scrawl scrawl--memo">am I really stuck here?</p>
       </section>
 
       <!-- desk phone / voicemail = the music player -->
@@ -166,8 +163,9 @@
         <text x="30" y="68" font-family="Courier Prime, monospace" font-size="11" fill="currentColor">#1</text>
       </svg>
 
-      <!-- bored stick figure + tally marks -->
-      <svg class="clip clip--bored" viewBox="0 0 240 140" aria-hidden="true">
+      <!-- bored stick figure, killing time with tic-tac-toe -->
+      <div class="bored">
+      <svg class="clip clip--bored" viewBox="30 20 150 115" aria-hidden="true">
         <g filter="url(#wobble)" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M40 126 L170 126"/>
           <path d="M60 126 L60 92 L148 92 L148 126"/>
@@ -178,10 +176,16 @@
           <path d="M101 76 Q118 86 112 92"/>
           <path d="M101 76 Q86 80 88 66 Q90 62 93 64"/>
           <path d="M114 36 q4 -4 8 0 M124 28 q4 -4 8 0" stroke-width="1.6"/>
-          <path d="M184 40 L184 70 M192 40 L192 70 M200 40 L200 70 M208 40 L208 70 M178 64 L214 46"/>
-          <path d="M224 42 L224 70"/>
         </g>
       </svg>
+      <div class="ttt">
+        <svg class="clip ttt__grid" viewBox="0 0 120 120" aria-hidden="true">
+          <path filter="url(#wobble)" d="M41 6 L39 116 M81 4 L82 114 M5 40 L116 42 M4 80 L115 79" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <div class="ttt__cells" id="ttt" role="group" aria-label="tic-tac-toe, you are X"></div>
+        <p class="scrawl ttt__note" id="ttt-note" aria-live="polite">your move</p>
+      </div>
+      </div>
 
       <nav class="links" id="links" aria-label="elsewhere" hidden>
         <p class="scrawl">elsewhere →</p>
